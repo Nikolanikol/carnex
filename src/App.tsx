@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import { fetchCatalog } from "./service";
+import CarPage from "./Pages/CarPage";
 
 /////
 // https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.CarType.Y.)&inav=%7CMetadata%7CSort
@@ -39,22 +40,6 @@ const fetchSubCategory = async (query: string) => {
 };
 
 function App() {
-  fetchSubCategory(
-    "(And.Hidden.Y._.(C.CarType.Y._.(C.Manufacturer.현대._.ModelGroup.i30.)))"
-  ).then((res) => {
-    console.log(
-      "res",
-      res.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets
-    );
-  });
-
-  axios
-    .get(
-      `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.(C.CarType.N._.(C.Manufacturer.BMW._.(C.ModelGroup.5%EC%8B%9C%EB%A6%AC%EC%A6%88._.(C.Model.5%EC%8B%9C%EB%A6%AC%EC%A6%88+(G60_)._.BadgeGroup.%EA%B0%80%EC%86%94%EB%A6%B0%2B%EC%A0%84%EA%B8%B0+2WD.)))))&inav=%7CMetadata%7CSort
-
-`
-    )
-    .then((res) => console.log("test", res.data));
   return (
     <div className="flex flex-col h-screen">
       <BrowserRouter>
@@ -63,6 +48,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/car/:id" element={<CarPage />} />
           </Routes>
         </main>
 

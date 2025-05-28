@@ -9,6 +9,7 @@ import { fetchCatalog } from "@/service";
 import SubCategory from "./MyFilterSubCategoryRow";
 import { filterStore } from "@/Store/store";
 import { observer } from "mobx-react-lite";
+import { Tabs, TabsList, TabsTrigger } from "@/UI/ShadcnTabs";
 
 interface ICatalogItem {
   Action: string;
@@ -17,12 +18,13 @@ interface ICatalogItem {
     EngName: string;
   };
 }
+
 const MyFilterManufatuceRow = observer(() => {
   const [mode, setMode] = useState<
     "(And.Hidden.N._.CarType.Y.)" | "(And.Hidden.N._.CarType.N.)"
   >("(And.Hidden.N._.CarType.Y.)");
 
-  const { query, setQuery } = filterStore;
+  const { setQuery } = filterStore;
   const [manufactureData, setManufactureData] = useState<ICatalogItem[] | null>(
     null
   );
@@ -41,20 +43,24 @@ const MyFilterManufatuceRow = observer(() => {
     setQuery(action);
   };
   return (
-    <div>
-      <div className="flex gap-x-2 justify-center ">
-        <span
-          className="border-2 cursor-pointer"
-          onClick={() => setMode("(And.Hidden.N._.CarType.Y.)")}
-        >
-          domestic
-        </span>
-        <span
-          className="border-2 cursor-pointer "
-          onClick={() => setMode("(And.Hidden.N._.CarType.N.)")}
-        >
-          foreign
-        </span>
+    <div className=" max-h-400 overflow-scroll">
+      <div className="flex gap-x-2 justify-center  ">
+        <Tabs defaultValue="account" className="w-[400px]">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger
+              value="account"
+              onClick={() => setMode("(And.Hidden.N._.CarType.Y.)")}
+            >
+              Domestic Car
+            </TabsTrigger>
+            <TabsTrigger
+              value="password"
+              onClick={() => setMode("(And.Hidden.N._.CarType.N.)")}
+            >
+              Forein Car
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
       <ul className=" relative">
         <div className="  lg:max-h-150 overflow-y-scroll flex flex-col gap-1 lg:gap-2 ">

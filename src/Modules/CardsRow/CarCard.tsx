@@ -14,23 +14,27 @@ const CarCard = ({ item, mode }) => {
   return (
     <Card
       key={item.Id}
-      className="max-w-[200px] border-2 border-black overflow-hidden "
+      className=" border-1 border-black overflow-hidden col-span-4 "
     >
-      <div className="overflow-hidden h-27  flex justify-center items-center relative">
+      <div className="overflow-hidden h-50  flex justify-center items-center relative">
         <img src={"https://ci.encar.com" + item.Photos[0]?.location} alt="" />
       </div>
       <div className="flex flex-col gap-2 ">
-        <div className="text-2xs font-bold border-b-2 h-24  pt-2">
+        <div className="text-2xs font-bold border-b-2 h-24  pt-2 px-2 text-center">
           {" "}
-          <span>{translateGenerationRow(item.Manufacturer)}</span>
-          <span> {translateGenerationRow(item.Model)}</span>
-          <span> {translateGenerationRow(item.Badge)}</span>
-          <span> {translateGenerationRow(item.Transmission)}</span>
+          <span>
+            {translateGenerationRow(item.Manufacturer)}{" "}
+            {translateGenerationRow(item.Model)}{" "}
+            {translateGenerationRow(item.Badge)}{" "}
+            {translateGenerationRow(item.Transmission)}
+          </span>
         </div>
         <div className="flex justify-evenly">
           <span>Год:</span>
           <span>{formatDate(item.Year)} </span>
-          <span>{item.Mileage && item.Mileage.toLocaleString("ru-RU")} км</span>
+          <span>
+            Пробег: {item.Mileage && item.Mileage.toLocaleString("ru-RU")} км
+          </span>
         </div>
 
         <div className="flex justify-evenly">
