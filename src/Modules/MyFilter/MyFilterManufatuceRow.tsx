@@ -31,11 +31,13 @@ const MyFilterManufatuceRow = observer(() => {
   const [value, setValue] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetchCatalog(mode).then((res) => {
-      setManufactureData(res);
-      setQuery(mode);
-      setLoading(false);
-    });
+    fetchCatalog(mode)
+      .then((res) => {
+        setManufactureData(res);
+        setQuery(mode);
+        setLoading(false);
+      })
+      .catch((e) => console.log(e));
   }, [mode]);
 
   const handleClick = (action: string) => {

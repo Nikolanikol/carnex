@@ -1,12 +1,16 @@
 import axios from "axios";
+import { error } from "console";
 
 
 
 const fetchCatalog = async(query:string)=>{
-     const res = await axios
-    .get(
-      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`
+     const res = await axios.get(
+      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
+
+
+      }
     )
+
     .then((res) => {
 
         const data      =  res.data.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
@@ -14,7 +18,7 @@ const fetchCatalog = async(query:string)=>{
         return data
 
     })
-    .catch(e=>console.log('fetch catalog error', e.text))
+    .catch(e=>console.log('fetch catalog error', e))
     return res
 }
 
