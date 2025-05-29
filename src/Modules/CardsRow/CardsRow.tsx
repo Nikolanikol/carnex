@@ -4,7 +4,10 @@ import CarCard from "./CarCard";
 import { observer } from "mobx-react-lite";
 import { filterStore } from "@/Store/store";
 import { Pagination } from "antd";
-import { off } from "process";
+
+const DEV = "http://localhost:9000";
+const PROD = "https://carnexproxy.vercel.app";
+const BASE_URL = PROD;
 const CardsRow = observer(() => {
   const { query, minMileage, maxMileage, minPrice, maxPrice } = filterStore;
   const [data, setData] = useState([]);
@@ -28,9 +31,12 @@ const CardsRow = observer(() => {
       paramsQuery +
       query.slice(query.length - 1);
     axios
-      .get(
-        `https://api.encar.com/search/car/list/premium?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`
-      )
+      .get(BASE_URL + "/getcars", {
+        params: {
+          q: newString,
+          offset,
+        },
+      })
       .then((res) => {
         setData(res.data.SearchResults);
         setTotal(res.data.Count);
@@ -47,6 +53,7 @@ const CardsRow = observer(() => {
   if (loading) {
     return <div>Loading...</div>;
   }
+  console.log(data);
   return (
     <div className="pb-10 flex flex-col min-h-screen">
       <div className="grid grid-cols-8 items-start gap-4 min-h-[80vh] ">
