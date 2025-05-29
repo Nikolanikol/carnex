@@ -13,9 +13,9 @@ const MyFilter = () => {
           </label>
           <MyFilterManufatuceRow />
 
-          <MyFilterMileage />
+          {/* <MyFilterMileage />
           <MyFilterPrice />
-          <MyFilterYear />
+          <MyFilterYear /> */}
         </div>
         {/* 
         <MyFilterMileage />

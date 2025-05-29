@@ -8,9 +8,7 @@ const Home = () => {
       <div className=" col-span-4 h-ful px-1 py-2">
         <MyFilter />
       </div>
-      <div className="col-span-8 h-full">
-        <CardsRow />
-      </div>
+      <div className="col-span-8 h-full">{/* <CardsRow /> */}</div>
     </div>
   );
 };

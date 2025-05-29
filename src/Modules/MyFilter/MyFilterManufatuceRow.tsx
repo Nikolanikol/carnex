@@ -73,20 +73,21 @@ const MyFilterManufatuceRow = observer(() => {
               handleClick(e);
             }}
           >
-            {manufactureData?.map((item) => (
-              <AccordionItem value={item.Action} key={item.Action}>
-                <AccordionTrigger>
-                  <div className="flex justify-between w-full pr-2">
-                    <span>{item.Metadata.EngName}</span>{" "}
-                    <span>{item.Count}</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                  {" "}
-                  <SubCategory action={value} />
-                </AccordionContent>
-              </AccordionItem>
-            ))}
+            {!loading &&
+              manufactureData?.map((item) => (
+                <AccordionItem value={item.Action} key={item.Action}>
+                  <AccordionTrigger>
+                    <div className="flex justify-between w-full pr-2">
+                      <span>{item.Metadata.EngName}</span>{" "}
+                      <span>{item.Count}</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {" "}
+                    <SubCategory action={value} />
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
           </Accordion>
         </div>
       </ul>
