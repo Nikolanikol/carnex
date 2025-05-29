@@ -6,8 +6,10 @@ import { error } from "console";
 const fetchCatalog = async(query:string)=>{
      const res = await axios.get(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
+        headers: {
+                    accept: "application/json",
 
-
+        }
       }
     )
 
@@ -25,7 +27,12 @@ const fetchCatalog = async(query:string)=>{
 const fetchSubCategory = async(query:string)=>{
      const res = await axios
     .get(
-      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`
+      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
+        headers: {
+                    accept: "application/json",
+
+        }
+      }
     )
     .then((res) => {
 
@@ -41,7 +48,12 @@ const fetchSubCategory = async(query:string)=>{
 const fetchGeneration = async(query:string)=>{
      const res = await axios
     .get(
-      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`
+      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
+        headers: {
+                    accept: "application/json",
+
+        }
+      }
     )
     .then((res) => {
 
@@ -56,7 +68,12 @@ const fetchGeneration = async(query:string)=>{
 const fetchSubGeneration = async(query:string)=>{
      const res = await axios
     .get(
-      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`
+      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
+        headers: {
+                    accept: "application/json",
+
+        }
+      }
     )
     .then((res) => {
 
@@ -71,7 +88,12 @@ const fetchSubGeneration = async(query:string)=>{
 const fetchSubRow = async(query:string)=>{
      const res = await axios
     .get(
-      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`
+      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
+        headers: {
+                    accept: "application/json",
+
+        }
+      }
     )
     .then((res) => {
 
