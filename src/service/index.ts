@@ -7,7 +7,9 @@ const fetchCatalog = async(query:string)=>{
      const res = await axios.get(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
         headers: {
-                    accept: "application/json",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "sec-ch-ua": "Chromium",
+        "sec-ch-ua-mobile": "?1",
 
         }
       }
@@ -29,7 +31,9 @@ const fetchSubCategory = async(query:string)=>{
     .get(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
         headers: {
-                    accept: "application/json",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "sec-ch-ua": "Chromium",
+        "sec-ch-ua-mobile": "?1",
 
         }
       }
@@ -50,7 +54,9 @@ const fetchGeneration = async(query:string)=>{
     .get(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
         headers: {
-                    accept: "application/json",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "sec-ch-ua": "Chromium",
+        "sec-ch-ua-mobile": "?1",
 
         }
       }
@@ -70,7 +76,9 @@ const fetchSubGeneration = async(query:string)=>{
     .get(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
         headers: {
-                    accept: "application/json",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "sec-ch-ua": "Chromium",
+        "sec-ch-ua-mobile": "?1",
 
         }
       }
@@ -90,7 +98,9 @@ const fetchSubRow = async(query:string)=>{
     .get(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
         headers: {
-                    accept: "application/json",
+                           "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "sec-ch-ua": "Chromium",
+        "sec-ch-ua-mobile": "?1",
 
         }
       }
