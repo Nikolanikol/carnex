@@ -56,7 +56,7 @@ const CardsRow = observer(() => {
   console.log(data);
   return (
     <div className="pb-10 flex flex-col min-h-screen">
-      <div className="grid grid-cols-8 items-start gap-4 min-h-[80vh] ">
+      <div className="grid  grid-cols-1 items-start gap-4 min-h-[80vh] ">
         {data.map((i) => (
           <CarCard key={i.Id} item={i} />
         ))}
