@@ -35,7 +35,7 @@ const fetchSubCategory = async (query: string) => {
 
 function App() {
   return (
-    <div className="flex flex-col h-screen ">
+    <div className="flex flex-col min-h-screen ">
       <BrowserRouter>
         <Header />
         <main className="grow ">
