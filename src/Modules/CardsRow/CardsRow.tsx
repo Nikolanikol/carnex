@@ -27,13 +27,19 @@ const CardsRow = observer(() => {
       query.slice(0, query.length - 1) +
       paramsQuery +
       query.slice(query.length - 1);
-    axios
-      .get(
-        `https://api.encar.com/search/car/list/premium?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`
-      )
-      .then((res) => {
-        setData(res.data.SearchResults);
-        setTotal(res.data.Count);
+    fetch(
+      `https://api.encar.com/search/car/list/premium?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`,
+      {
+        headers: {
+          "user-agent":
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.SearchResults);
+        setTotal(data.Count);
         console.log(data);
       })
       .catch((error) => {
