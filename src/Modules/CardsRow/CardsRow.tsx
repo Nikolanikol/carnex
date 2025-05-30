@@ -58,10 +58,10 @@ const CardsRow = observer(() => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  if (data.length === 0) return <div>net dannih</div>;
   return (
     <div className="pb-10 flex flex-col min-h-screen">
-      <div className="grid  grid-cols-1 items-start gap-4 min-h-[80vh] ">
+      <div className="grid  grid-cols-1 lg:grid-cols-2 items-start gap-4 min-h-[80vh] ">
         {data && data.map((i) => <CarCard key={i.Id} item={i} />)}
       </div>
       <div className="mt-5">

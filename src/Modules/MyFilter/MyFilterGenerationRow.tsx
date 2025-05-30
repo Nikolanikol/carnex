@@ -10,6 +10,8 @@ import { fetchGeneration } from "@/service";
 import { useEffect, useState } from "react";
 import SubGeneration from "./MyFilterSubGeneration";
 import { filterStore } from "@/Store/store";
+import { translateGenerationRow } from "@/utils/translateGenerationRow";
+import clsx from "clsx";
 
 /////////////////////
 const MyFilterGenerationRow = ({ value }) => {
@@ -44,9 +46,13 @@ const MyFilterGenerationRow = ({ value }) => {
           >
             <AccordionItem value={item.Action}>
               <AccordionTrigger onClick={() => handleClick(item.Action)}>
-                <div className="w-full pl-2">
-                  <span className="w-40"></span>
-                  <span> {item.DisplayValue} </span>
+                <div
+                  className={clsx(
+                    "w-full   flex justify-between px-3 ml-4 py-1 rounded-xl",
+                    item.Action === action ? "bg-teal-700" : ""
+                  )}
+                >
+                  <span> {translateGenerationRow(item.DisplayValue)} </span>
                   <span>{item.Count}</span>
                 </div>
               </AccordionTrigger>

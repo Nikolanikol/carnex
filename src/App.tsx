@@ -7,13 +7,7 @@ import Home from "./Pages/Home";
 import About from "./Pages/About";
 import { fetchCatalog } from "./service";
 import CarPage from "./Pages/CarPage";
-
-/////
-// https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.CarType.Y.)&inav=%7CMetadata%7CSort
-// https://api.encar.com/search/car/list/general?count=true&q=(And.(And.Hidden.N._.CarType.Y.)_.AdType.A.)&sr=%7CModifiedDate%7C0%7C8    отдает items 8
-// https://api.encar.com/search/car/list/premium?count=true&q=(And.(And.Hidden.N._.CarType.Y.)_.AdType.B.)&sr=%7CModifiedDate%7C0%7C8       отдает items    8
-// https://api.encar.com/search/car/list/premium?count=true&q=(And.Hidden.N._.CarType.Y.)&sr=%7CModifiedDate%7C0%7C20                           отдает items    20
-// https://api.encar.com/search/car/list/general?count=true&q=(And.(And.Hidden.N._.CarType.Y.)_.(Or.ServiceMark.EncarDiagnosisP0._.ServiceMark.EncarDiagnosisP1._.ServiceMark.EncarDiagnosisP2.))&sr=%7CExtendWarranty%7C0%7C5          отдает items    4
+import Header from "./Modules/Header/Header";
 
 interface ICatalogItem {
   Action: string;
@@ -41,10 +35,10 @@ const fetchSubCategory = async (query: string) => {
 
 function App() {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen ">
       <BrowserRouter>
-        <div className="h-20 border-teal-600 border-2  bg-teal-300">Header</div>
-        <main className="grow border-2 border-blue-500">
+        <Header />
+        <main className="grow ">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

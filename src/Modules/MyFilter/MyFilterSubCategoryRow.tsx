@@ -9,6 +9,8 @@ import {
 import { fetchSubCategory } from "@/service";
 import MyFilterGenerationRow from "./MyFilterGenerationRow";
 import { filterStore } from "@/Store/store";
+import { getSortedData } from "@/utils/getSortedData";
+import clsx from "clsx";
 
 interface StateProps {
   IsSelected: boolean;
@@ -62,9 +64,10 @@ const SubCategory = ({ action }) => {
         });
     }
   }, []);
+  const sortedData = getSortedData(subCategoryState);
   return (
     <div className="pl-4">
-      {subCategoryState?.map((item) => (
+      {sortedData?.map((item) => (
         <Accordion
           type="single"
           collapsible
@@ -77,7 +80,12 @@ const SubCategory = ({ action }) => {
         >
           <AccordionItem value={item.Action} key={item.Action}>
             <AccordionTrigger onClick={() => handleClick(item.Action)}>
-              <div className="w-full flex justify-between">
+              <div
+                className={clsx(
+                  "w-full flex justify-between pl-5 pr-2 py-2 rounded-xl",
+                  item.Action === value ? "bg-teal-700" : ""
+                )}
+              >
                 <span> {item.Metadata.EngName}</span>
                 <span>{item.Count}</span>
               </div>

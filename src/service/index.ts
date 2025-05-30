@@ -170,7 +170,9 @@ const fetchSubRow = async(query:string)=>{
     .then(data=>data.json())
     .then((res) => {
 
+
         const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
+        console.log(data)
 
         return data
 
@@ -181,11 +183,12 @@ const fetchSubRow = async(query:string)=>{
             const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
         .then(data=>data.json())
         .then((res) => {
-
+            console.log('start json')
         const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
-            console.log(data)
+            console.log('data',data)
         return data
-
+// [0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
+// 
     })
 
         return res

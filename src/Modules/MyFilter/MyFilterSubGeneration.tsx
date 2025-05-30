@@ -9,6 +9,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/UI/ShancdAccordion";
+import { translateGenerationRow } from "@/utils/translateGenerationRow";
+import clsx from "clsx";
 const SubGeneration = ({ action }) => {
   const { query, setQuery } = filterStore;
 
@@ -36,8 +38,8 @@ const SubGeneration = ({ action }) => {
     <div className="mt-4 ml-2">
       {subGeneration.map((item) => (
         <Accordion
-          value={inputValue}
-          onValueChange={(e) => handleClick(e)}
+          //   value={inputValue}
+          //   onValueChange={(e) => handleClick(e)}
           type="single"
           collapsible
         >
@@ -45,12 +47,19 @@ const SubGeneration = ({ action }) => {
             value={item.Action}
             key={item.DisplayValue}
             className="   space-x-2  w-full   "
-            onClick={() => handleClick(item.Action)}
           >
-            <AccordionTrigger className=" w-full ">
+            <AccordionTrigger
+              className=" w-full "
+              onClick={() => handleClick(item.Action)}
+            >
               <Label htmlFor={item.Value} className="w-full  ">
-                <div className="flex justify-between  w-full self-stretch cursor-pointer ">
-                  <span>{item.DisplayValue}</span>
+                <div
+                  className={clsx(
+                    "flex justify-between  w-full self-stretch cursor-pointer ml-8 px-2 pr-8 py-1 rounded-xl",
+                    item.Action === inputValue ? "bg-teal-700" : ""
+                  )}
+                >
+                  <span>{translateGenerationRow(item.DisplayValue)}</span>
                   <span>{item.Count}</span>
                 </div>
               </Label>
@@ -74,9 +83,9 @@ const SubRow = ({ action }) => {
   const [inputValue, setInputValue] = useState();
   useEffect(() => {
     if (action) {
+      console.log("ACTION", action);
       fetchSubRow(action)
         .then((res) => setState(res))
-
         .catch((e) => console.log("error"));
       // .finally(() => setLoading(false));
     }
@@ -87,20 +96,29 @@ const SubRow = ({ action }) => {
   };
   return (
     <div>
-      <RadioGroup value={inputValue} onValueChange={(e) => handleClick(e)}>
+      <RadioGroup value={inputValue}>
         {state &&
           state.map((item) => {
             return (
-              <div className="flex items-center space-x-2  border-2 cursor-pointer w-full">
+              <div className="flex items-center space-x-2   cursor-pointer w-full">
                 {" "}
                 <RadioGroupItem
+                  disabled={item.Count == 0}
                   value={item.Action}
                   id={item.Value}
                   className="cursor-pointer"
+                  onClick={() => handleClick(item.Action)}
                 />
-                <Label htmlFor={item.Value} className="cursor-pointer">
+                <Label
+                  htmlFor={item.Value}
+                  className={clsx(
+                    "cursor-pointer  w-full flex justify-between pr-3",
+                    item.Count == 0 ? "opacity-50" : ""
+                  )}
+                >
                   {" "}
-                  {item.Value} {item.Count}
+                  <span> {translateGenerationRow(item.Value)}</span>{" "}
+                  <span>{item.Count}</span>
                 </Label>
               </div>
             );

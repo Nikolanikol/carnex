@@ -14,7 +14,7 @@ const CarCard = ({ item, mode }) => {
   return (
     <Card
       key={item.Id}
-      className=" border-1 border-black overflow-hidden col-span-1 lg:col-span-2 "
+      className=" border-1 border-black overflow-hidden col-span-1  "
     >
       <div className="overflow-hidden h-50  flex justify-center items-center relative">
         <img src={"https://ci.encar.com" + item.Photos[0]?.location} alt="" />

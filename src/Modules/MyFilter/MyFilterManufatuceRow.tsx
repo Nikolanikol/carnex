@@ -10,6 +10,8 @@ import SubCategory from "./MyFilterSubCategoryRow";
 import { filterStore } from "@/Store/store";
 import { observer } from "mobx-react-lite";
 import { Tabs, TabsList, TabsTrigger } from "@/UI/ShadcnTabs";
+import clsx from "clsx";
+import { getSortedData } from "@/utils/getSortedData";
 
 interface ICatalogItem {
   Action: string;
@@ -48,6 +50,9 @@ const MyFilterManufatuceRow = observer(() => {
       setQuery(action);
     }
   };
+
+  const sortedData = getSortedData(manufactureData);
+
   return (
     <div className=" max-h-400 overflow-scroll">
       <div className="flex gap-x-2 justify-center  ">
@@ -56,12 +61,14 @@ const MyFilterManufatuceRow = observer(() => {
             <TabsTrigger
               value="account"
               onClick={() => setMode("(And.Hidden.N._.CarType.Y.)")}
+              className="cursor-pointer"
             >
               Domestic Car
             </TabsTrigger>
             <TabsTrigger
               value="password"
               onClick={() => setMode("(And.Hidden.N._.CarType.N.)")}
+              className="cursor-pointer"
             >
               Forein Car
             </TabsTrigger>
@@ -80,10 +87,15 @@ const MyFilterManufatuceRow = observer(() => {
             // }}
           >
             {!loading &&
-              manufactureData?.map((item) => (
+              sortedData?.map((item) => (
                 <AccordionItem value={item.Action} key={item.Action}>
                   <AccordionTrigger onClick={() => handleClick(item.Action)}>
-                    <div className="flex justify-between w-full pr-2">
+                    <div
+                      className={clsx(
+                        "flex justify-between w-full pr-2 px-2 py-2 rounded-xl",
+                        item.Action === activeManufacture ? "bg-teal-800" : ""
+                      )}
+                    >
                       <span>{item.Metadata.EngName}</span>{" "}
                       <span>{item.Count}</span>
                     </div>
