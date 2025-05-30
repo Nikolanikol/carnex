@@ -11,7 +11,9 @@ class FilterStore {
   }
 
   setQuery = action((newQuery: string) => {
-    this.query = newQuery;
+    if (newQuery != this.query) {
+      this.query = newQuery;
+    }
   });
   setMinMileage = action((newQuery: string) => {
     this.minMileage = newQuery;

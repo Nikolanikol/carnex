@@ -20,9 +20,11 @@ const MyFilterGenerationRow = ({ value }) => {
   );
   const [action, setAction] = useState<string | null>(null);
 
-  const handleClick = (action: string) => {
-    setAction(action);
-    setQuery(action);
+  const handleClick = (value: string) => {
+    if (action != value) {
+      setAction(value);
+      setQuery(value);
+    }
   };
   useEffect(() => {
     fetchGeneration(value).then((res) => {
@@ -37,11 +39,11 @@ const MyFilterGenerationRow = ({ value }) => {
             type="single"
             collapsible
             key={item.DisplayValue}
-            value={action}
-            onValueChange={(e) => handleClick(e)}
+            // value={action}
+            // onValueChange={(e) => handleClick(e)}
           >
             <AccordionItem value={item.Action}>
-              <AccordionTrigger>
+              <AccordionTrigger onClick={() => handleClick(item.Action)}>
                 <div className="w-full pl-2">
                   <span className="w-40"></span>
                   <span> {item.DisplayValue} </span>

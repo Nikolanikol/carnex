@@ -27,7 +27,6 @@ const SubGeneration = ({ action }) => {
   }, []);
   const handleClick = (value: string) => {
     const encode = encodeURIComponent(value);
-    console.log(encode);
     setInputValue(value);
     setQuery(encode);
   };
@@ -46,6 +45,7 @@ const SubGeneration = ({ action }) => {
             value={item.Action}
             key={item.DisplayValue}
             className="   space-x-2  w-full   "
+            onClick={() => handleClick(item.Action)}
           >
             <AccordionTrigger className=" w-full ">
               <Label htmlFor={item.Value} className="w-full  ">

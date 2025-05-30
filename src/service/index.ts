@@ -5,7 +5,10 @@ import { error } from "console";
 
 // https://carnexproxy.vercel.app/
 const fetchCatalog = async(query:string)=>{
-     const res = await fetch(
+
+
+    try {
+         const res = await fetch(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
         headers: {
           "user-agent":
@@ -21,12 +24,32 @@ const fetchCatalog = async(query:string)=>{
         return data
 
     })
-    .catch(e=>console.log('fetch catalog error', e))
     return res
+    } catch (error) {
+        const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+        .then(data=>data.json())
+        .then((res) => {
+
+        const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
+            console.log(data)
+        return data
+
+    })
+        return res
+
+    }
+    
+
+    
+    // .catch(()=>{
+              
+    
 }
 
 const fetchSubCategory = async(query:string)=>{
-     const res = await fetch(
+
+    try {
+         const res = await fetch(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
         headers: {
           "user-agent":
@@ -42,12 +65,28 @@ const fetchSubCategory = async(query:string)=>{
         return data
 
     })
-    .catch(e=>console.log('fetch catalog error', e.text))
+        return res
+
+    } catch (error) {
+        
+  const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+        .then(data=>data.json())
+    .then((res) => {
+
+        const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
+
+        return data
+
+    })
     return res
+    }
+    
+
 }
 
 const fetchGeneration = async(query:string)=>{
-     const res = await fetch(
+    try {
+        const res = await fetch(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
         headers: {
           "user-agent":
@@ -63,11 +102,25 @@ const fetchGeneration = async(query:string)=>{
         return data
 
     })
-    .catch(e=>console.log('fetch catalog error', e.text))
+
     return res
+    } catch (error) {
+         const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+        .then(data=>data.json())
+    .then((res) => {
+        const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets
+        console.log(data)
+        return data
+
+    })
+    return res
+    }
+     
 }
 const fetchSubGeneration = async(query:string)=>{
-     const res = await fetch(
+
+    try {
+        const res = await fetch(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
         headers: {
           "user-agent":
@@ -85,11 +138,28 @@ const fetchSubGeneration = async(query:string)=>{
         return data
 
     })
-    .catch(e=>console.log('fetch catalog error', e.text))
+
     return res
+    } catch (error) {
+          const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+        .then(data=>data.json())
+ .then((res) => {
+
+        const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
+
+
+        return data
+
+    })
+
+        return res
+    }
+     
 }
 const fetchSubRow = async(query:string)=>{
-     const res = await fetch(
+
+    try {
+          const res = await fetch(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
         headers: {
           "user-agent":
@@ -105,8 +175,22 @@ const fetchSubRow = async(query:string)=>{
         return data
 
     })
-    .catch(e=>console.log('fetch catalog error', e.text))
+
     return res
+    } catch (error) {
+            const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+        .then(data=>data.json())
+        .then((res) => {
+
+        const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
+            console.log(data)
+        return data
+
+    })
+
+        return res
+    }
+   
 }
 export {
     fetchCatalog,

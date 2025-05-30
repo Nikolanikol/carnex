@@ -21,7 +21,6 @@ const CardsRow = observer(() => {
       minPrice,
       maxPrice,
     });
-    console.log(paramsQuery);
 
     const newString =
       query.slice(0, query.length - 1) +
@@ -40,10 +39,16 @@ const CardsRow = observer(() => {
       .then((data) => {
         setData(data.SearchResults);
         setTotal(data.Count);
-        console.log(data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        fetch(
+          `https://encar-proxy.onrender.com/api/catalog?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data.SearchResults);
+            setTotal(data.Count);
+          });
       })
       .finally(() => setLoading(false));
   }, [query, currentPage, minMileage, maxMileage, minPrice, maxPrice]);
@@ -53,13 +58,11 @@ const CardsRow = observer(() => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  console.log(data);
+
   return (
     <div className="pb-10 flex flex-col min-h-screen">
       <div className="grid  grid-cols-1 items-start gap-4 min-h-[80vh] ">
-        {data.map((i) => (
-          <CarCard key={i.Id} item={i} />
-        ))}
+        {data && data.map((i) => <CarCard key={i.Id} item={i} />)}
       </div>
       <div className="mt-5">
         {" "}

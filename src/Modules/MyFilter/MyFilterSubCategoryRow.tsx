@@ -43,8 +43,10 @@ const SubCategory = ({ action }) => {
   const [loading, setLoading] = useState(true);
 
   const handleClick = (action: string) => {
-    setValue(action);
-    setQuery(action);
+    if (value != action) {
+      setValue(action);
+      setQuery(action);
+    }
   };
   useEffect(() => {
     if (action) {
@@ -67,14 +69,14 @@ const SubCategory = ({ action }) => {
           type="single"
           collapsible
           key={item.DisplayValue}
-          value={value}
-          onValueChange={(e) => {
-            handleClick(e);
-          }}
+          //   value={value}
+          //   onValueChange={(e) => {
+          //     handleClick(e);
+          //   }}
           //   value={subCategoryState}
         >
           <AccordionItem value={item.Action} key={item.Action}>
-            <AccordionTrigger>
+            <AccordionTrigger onClick={() => handleClick(item.Action)}>
               <div className="w-full flex justify-between">
                 <span> {item.Metadata.EngName}</span>
                 <span>{item.Count}</span>

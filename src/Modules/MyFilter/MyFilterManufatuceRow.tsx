@@ -28,7 +28,9 @@ const MyFilterManufatuceRow = observer(() => {
   const [manufactureData, setManufactureData] = useState<ICatalogItem[] | null>(
     null
   );
-  const [value, setValue] = useState<string | null>(null);
+  const [activeManufacture, setActiveManufacture] = useState<string | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchCatalog(mode)
@@ -41,8 +43,10 @@ const MyFilterManufatuceRow = observer(() => {
   }, [mode]);
 
   const handleClick = (action: string) => {
-    setValue(action);
-    setQuery(action);
+    if (action != activeManufacture) {
+      setActiveManufacture(action);
+      setQuery(action);
+    }
   };
   return (
     <div className=" max-h-400 overflow-scroll">
@@ -70,15 +74,15 @@ const MyFilterManufatuceRow = observer(() => {
             type="single"
             collapsible
             className="w-full "
-            value={value}
-            onValueChange={(e) => {
-              handleClick(e);
-            }}
+            // value={activeManufacture}
+            // onValueChange={(e) => {
+            //   handleClick(e);
+            // }}
           >
             {!loading &&
               manufactureData?.map((item) => (
                 <AccordionItem value={item.Action} key={item.Action}>
-                  <AccordionTrigger>
+                  <AccordionTrigger onClick={() => handleClick(item.Action)}>
                     <div className="flex justify-between w-full pr-2">
                       <span>{item.Metadata.EngName}</span>{" "}
                       <span>{item.Count}</span>
@@ -86,7 +90,7 @@ const MyFilterManufatuceRow = observer(() => {
                   </AccordionTrigger>
                   <AccordionContent>
                     {" "}
-                    <SubCategory action={value} />
+                    <SubCategory action={activeManufacture} />
                   </AccordionContent>
                 </AccordionItem>
               ))}
