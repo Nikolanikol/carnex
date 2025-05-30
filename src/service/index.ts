@@ -5,21 +5,19 @@ import { error } from "console";
 
 // https://carnexproxy.vercel.app/
 const fetchCatalog = async(query:string)=>{
-     const res = await axios.get(
+     const res = await fetch(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
         headers: {
-        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
-        "sec-ch-ua": "Chromium",
-        "sec-ch-ua-mobile": "?1",
-
-        }
+          "user-agent":
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+        },
       }
     )
-
+    .then(data=>data.json())
     .then((res) => {
 
-        const data      =  res.data.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
-        // console.log(data)
+        const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
+
         return data
 
     })
@@ -28,20 +26,18 @@ const fetchCatalog = async(query:string)=>{
 }
 
 const fetchSubCategory = async(query:string)=>{
-     const res = await axios
-    .get(
+     const res = await fetch(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
         headers: {
-        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
-        "sec-ch-ua": "Chromium",
-        "sec-ch-ua-mobile": "?1",
-
-        }
+          "user-agent":
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+        },
       }
     )
+    .then(data=>data.json())
     .then((res) => {
 
-        const data      =  res.data.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
+        const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
         console.log(data)
         return data
 
@@ -51,20 +47,18 @@ const fetchSubCategory = async(query:string)=>{
 }
 
 const fetchGeneration = async(query:string)=>{
-     const res = await axios
-    .get(
+     const res = await fetch(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
         headers: {
-        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
-        "sec-ch-ua": "Chromium",
-        "sec-ch-ua-mobile": "?1",
-
-        }
+          "user-agent":
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+        },
       }
     )
+    .then(data=>data.json())
     .then((res) => {
 
-        const data      =  res.data.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets
+        const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets
         console.log(data)
         return data
 
@@ -73,18 +67,16 @@ const fetchGeneration = async(query:string)=>{
     return res
 }
 const fetchSubGeneration = async(query:string)=>{
-     const res = await axios
-    .get(
+     const res = await fetch(
       `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
         headers: {
-        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
-        "sec-ch-ua": "Chromium",
-        "sec-ch-ua-mobile": "?1",
-
-        }
+          "user-agent":
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+        },
       }
 
     )
+    .then(data=>data.json())
     .then((res) => {
 
         const data      =  res.data.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
@@ -97,20 +89,18 @@ const fetchSubGeneration = async(query:string)=>{
     return res
 }
 const fetchSubRow = async(query:string)=>{
-     const res = await axios
-    .get(
-      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`, {
+     const res = await fetch(
+      `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`,{
         headers: {
-                           "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
-        "sec-ch-ua": "Chromium",
-        "sec-ch-ua-mobile": "?1",
-
-        }
+          "user-agent":
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+        },
       }
     )
+    .then(data=>data.json())
     .then((res) => {
 
-        const data      =  res.data.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
+        const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets
 
         return data
 
