@@ -11,7 +11,7 @@ const Header = () => {
     <div className="h-20 border-teal-600 border-2  bg-teal-700 min-h-30 flex items-center px-3  z-50 rounded-b-2xl sticky top-0">
       <div
         className={clsx(
-          "min-h-screen w-screen bg-[rgba(1,0,0,0.3)]    absolute top-0     z-10 -left-200 transition-all ease-in-out duration-300",
+          "min-h-screen w-screen bg-[rgba(1,0,0,0.3)]    absolute top-0     z-10 -left-[5000px] transition-all ease-in-out duration-300",
           isShow ? "block left-0" : "block "
         )}
         onClick={() => setIsShow(false)}
