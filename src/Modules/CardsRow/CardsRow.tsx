@@ -5,9 +5,6 @@ import { observer } from "mobx-react-lite";
 import { filterStore } from "@/Store/store";
 import { Pagination } from "antd";
 
-const DEV = "http://localhost:9000";
-const PROD = "https://carnexproxy.vercel.app";
-const BASE_URL = PROD;
 const CardsRow = observer(() => {
   const { query, minMileage, maxMileage, minPrice, maxPrice } = filterStore;
   const [data, setData] = useState([]);
@@ -31,12 +28,9 @@ const CardsRow = observer(() => {
       paramsQuery +
       query.slice(query.length - 1);
     axios
-      .get(BASE_URL + "/getcars", {
-        params: {
-          q: newString,
-          offset,
-        },
-      })
+      .get(
+        `https://api.encar.com/search/car/list/premium?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`
+      )
       .then((res) => {
         setData(res.data.SearchResults);
         setTotal(res.data.Count);
