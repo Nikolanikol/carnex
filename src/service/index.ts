@@ -2,8 +2,9 @@ import axios from "axios";
 import { error } from "console";
 
     //   `https://api.encar.com/search/car/list/general?count=true&q=${query}&inav=%7CMetadata%7CSort`
+// https://api.encar.com/search/car/list/mobile?count=true&q=(And.Hidden.N._.CarType.A.)&sr=%7CMobileModifiedDate%7C0%7C200&inav=%7CMetadata%7CSort&cursor=
 
-// https://carnexproxy.vercel.app/
+
 const fetchCatalog = async(query:string)=>{
 
 
@@ -26,7 +27,8 @@ const fetchCatalog = async(query:string)=>{
     })
     return res
     } catch (error) {
-        const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+        const res =  fetch(`https://encar-proxy-main.onrender.com/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort
+`)
         .then(data=>data.json())
         .then((res) => {
 
@@ -69,7 +71,7 @@ const fetchSubCategory = async(query:string)=>{
 
     } catch (error) {
         
-  const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+  const res =  fetch(`https://encar-proxy-main.onrender.com/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
         .then(data=>data.json())
     .then((res) => {
 
@@ -105,7 +107,7 @@ const fetchGeneration = async(query:string)=>{
 
     return res
     } catch (error) {
-         const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+         const res =  fetch(`https://encar-proxy-main.onrender.com/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
         .then(data=>data.json())
     .then((res) => {
         const data      =  res.iNav.Nodes.find(i=>i.DisplayName === '국산여부').Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find(i=>i.IsSelected === true).Refinements.Nodes[0].Facets.find((i) => i.IsSelected === true).Refinements.Nodes[0].Facets
@@ -141,7 +143,7 @@ const fetchSubGeneration = async(query:string)=>{
 
     return res
     } catch (error) {
-          const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+          const res =  fetch(`https://encar-proxy-main.onrender.com/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
         .then(data=>data.json())
  .then((res) => {
 
@@ -180,7 +182,7 @@ const fetchSubRow = async(query:string)=>{
 
     return res
     } catch (error) {
-            const res =  fetch(`https://encar-proxy.habsida.net/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
+            const res =  fetch(`https://encar-proxy-main.onrender.com/api/nav?count=true&q=${query}&inav=%7CMetadata%7CSort`)
         .then(data=>data.json())
         .then((res) => {
             console.log('start json')

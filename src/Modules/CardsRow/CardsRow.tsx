@@ -42,7 +42,7 @@ const CardsRow = observer(() => {
       })
       .catch((error) => {
         fetch(
-          `https://encar-proxy.onrender.com/api/catalog?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`
+          `https://encar-proxy-main.onrender.com/api/catalog?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`
         )
           .then((res) => res.json())
           .then((data) => {
@@ -59,6 +59,7 @@ const CardsRow = observer(() => {
     return <div>Loading...</div>;
   }
   if (data.length === 0) return <div>net dannih</div>;
+  console.log(data);
   return (
     <div className="pb-10 flex flex-col min-h-screen">
       <div className="grid  grid-cols-1 lg:grid-cols-2 items-start gap-4 min-h-[80vh] ">
