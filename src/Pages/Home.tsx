@@ -5,12 +5,7 @@ import React from "react";
 
 const Home = () => {
   const [isShow, setIsShow] = React.useState(false);
-  React.useEffect(() => {
-    document.body.style.overflow = isShow ? "hidden" : "auto";
-    return () => {
-      document.body.style.overflow = "auto"; // сброс при размонтировании
-    };
-  }, [isShow]);
+
   return (
     <div
       className={clsx(

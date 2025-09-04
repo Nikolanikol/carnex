@@ -4,7 +4,7 @@ import CarCard from "./CarCard";
 import { observer } from "mobx-react-lite";
 import { filterStore } from "@/Store/store";
 import { Pagination } from "antd";
-
+import { Skeleton } from "antd";
 const CardsRow = observer(() => {
   const { query, minMileage, maxMileage, minPrice, maxPrice } = filterStore;
   const [data, setData] = useState([]);
@@ -56,9 +56,9 @@ const CardsRow = observer(() => {
     setCurentPage(0);
   }, [query]);
   if (loading) {
-    return <div>Loading...</div>;
+    return <Skeleton active paragraph={{ rows: 4 }} />;
   }
-  if (data.length === 0) return <div>net dannih</div>;
+  if (data.length === 0) return <Skeleton active paragraph={{ rows: 4 }} />;
   console.log(data);
   return (
     <div className="pb-10 flex flex-col min-h-screen">
