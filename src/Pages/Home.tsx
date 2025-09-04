@@ -5,8 +5,18 @@ import React from "react";
 
 const Home = () => {
   const [isShow, setIsShow] = React.useState(false);
+  React.useEffect(() => {
+    document.body.style.overflow = isShow ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto"; // сброс при размонтировании
+    };
+  }, [isShow]);
   return (
-    <div className=" grid grid-cols-1 lg:grid-cols-12 gap-4 p-2 h-full m-0 mx-auto ">
+    <div
+      className={clsx(
+        " grid grid-cols-1 lg:grid-cols-12 gap-4 p-2 h-full m-0 mx-auto "
+      )}
+    >
       <div className="min-h-4 border-red border-2 block lg:hidden">
         <button
           className="cursor-pointer w-full relative z-50"
@@ -17,8 +27,8 @@ const Home = () => {
       </div>
       <div
         className={clsx(
-          "col-span-1 lg:col-span-4 h-ful px-1 py-2   sticky top-0  border-2 border-black",
-          isShow ? "block  z-100" : "hidden lg:block"
+          "col-span-1 lg:col-span-4 h-ful px-1 py-2     border-2 border-black",
+          isShow ? "block   " : "hidden lg:block"
         )}
       >
         <MyFilter />
