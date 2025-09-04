@@ -103,15 +103,15 @@ const DetailInfo: FC<DetailInfoProps> = ({ id, carnumber }) => {
   if (isLoading) return " loading";
   if (error) return " error";
   return (
-    <div className="m-5  border-black">
-      <div className="flex flex-col">
+    <div className="m-5  ">
+      <div className="flex flex-col ">
         {/* <span> {id}- id</span>
         <span>{carnumber} carnumber</span> */}
-        <div className="max-w-4xl mx-auto p-1 bg-white rounded shadow space-y-6 text-gray-900">
+        <div className="px-4 mx-auto  w-full  bg-white rounded shadow space-y-6 text-gray-900 py-4">
           <h1 className="text-3xl font-bold mb-4">Детальная информация</h1>
 
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-6   ">
+            <div className="">
               <h2 className="text-xl font-semibold mb-2">Основные данные</h2>
               <ul className="space-y-1 text-sm">
                 <li>

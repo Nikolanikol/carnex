@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen ">
       <BrowserRouter>
-        <Header />
+        {/* <Header /> */}
         <main className="grow ">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -45,8 +45,6 @@ function App() {
             <Route path="/car/:id" element={<CarPage />} />
           </Routes>
         </main>
-
-        <div className="h-20 border-teal-600 border-2  bg-teal-300">footer</div>
       </BrowserRouter>
     </div>
   );

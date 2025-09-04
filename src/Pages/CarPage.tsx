@@ -236,184 +236,170 @@ const CarPage = () => {
   if (mainDataLoading) return <div>loading</div>;
 
   return (
-    <div className="text-black border-2  max-w-[1200px]  px-4 ">
-      <div>
-        {" "}
-        {translateGenerationRow(catalog.category.manufacturerName)}{" "}
-        {translateGenerationRow(catalog.category.modelName)} <span> / </span>
-        <span>{catalog.vehicleNo}</span>
-        <span> / </span>
-        {catalog.contact.address}
-        <span> / </span>
-      </div>
-      <div className="pt-10">
-        <header>
-          <h1 className="lg:text-4xl text-xl font-bold mb-2 flex justify-between flex-col lg:fler">
-            {/* {catalog.category.manufacturerName} {catalog.category.modelName}{" "}
-          {catalog.category.gradeName} */}
-            <div className=" border-b-2 border-black">
-              {translateGenerationRow(catalog.category.manufacturerName)}{" "}
-              {translateGenerationRow(catalog.category.modelName)}{" "}
-              {translateGenerationRow(catalog.category.gradeName)}{" "}
-              {formatDate(catalog.category.yearMonth)}
+    <div className="max-w-[1200px] mx-auto text-black border-2 rounded-lg shadow-sm bg-white  py-8 space-y-10">
+      {/* Заголовок */}
+      <header className="space-y-4 px-6">
+        <h1 className="lg:text-4xl text-2xl font-bold flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3">
+          <div className="border-b-2 border-black pb-1">
+            {translateGenerationRow(catalog.category.manufacturerName)}{" "}
+            {translateGenerationRow(catalog.category.modelName)}{" "}
+            {translateGenerationRow(catalog.category.gradeName)}{" "}
+            {formatDate(catalog.category.yearMonth)}
+          </div>
+          <div className="text-red-600">
+            {convertNumber(catalog.advertisement.price)} вон
+          </div>
+        </h1>
+
+        <div className="flex flex-col md:flex-row justify-between text-sm text-gray-600 gap-2">
+          <p className="flex flex-wrap gap-2">
+            <span>
+              VIN:{" "}
+              <span className="font-mono">{catalog.vin || "не указано"}</span>
+            </span>
+            <span>| Номер: {catalog.vehicleNo}</span>
+          </p>
+          <span className="font-semibold text-gray-800">
+            Пробег: {catalog.spec.mileage.toLocaleString()} км
+          </span>
+        </div>
+      </header>
+
+      {/* Основной блок */}
+      <div className=" lg:grid-cols-2 gap-8 ">
+        {/* Фото */}
+        <section className="border rounded-lg py-4 bg-gray-50 shadow-sm max-w-screen">
+          <h2 className="text-2xl font-semibold mb-4 px-4">Фотографии</h2>
+          {catalog.photos.length === 0 ? (
+            <p className="text-gray-500">Фотографии отсутствуют</p>
+          ) : (
+            <div className="border-2 rounded-lg overflow-hidden">
+              <Carousel opts={{ loop: true }}>
+                <CarouselContent>
+                  {catalog.photos.map((photo) => (
+                    <CarouselItem
+                      key={photo.code}
+                      className="flex justify-center"
+                    >
+                      <img
+                        src={"https://ci.encar.com" + photo.path}
+                        alt={photo.desc || "Car photo"}
+                        className="w-full object-cover max-w-[900px] max-h-[550px]"
+                      />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
             </div>
-            <div>{convertNumber(catalog.advertisement.price)} вон</div>
-          </h1>
-          <div className="flex justify-between">
-            <p className="text-gray-600 flex flex-col md:flex-row">
-              <span>
-                VIN:{" "}
-                <span className="font-mono">
-                  {catalog.vin ? catalog?.vin : "не указано"}
-                </span>{" "}
-              </span>
-              <span>| Номер: {catalog.vehicleNo}</span>
+          )}
+        </section>
+
+        {/* Инфоблок */}
+        <section className="flex flex-col justify-between border rounded-lg p-4 shadow-sm bg-gray-50">
+          <DetailInfo id={catalog?.vehicleId} carnumber={catalog?.vehicleNo} />
+          <div className="flex items-center justify-center mt-6">
+            <Button className="py-3 px-6 text-lg" variant="destructive">
+              <a
+                target="_blank"
+                href={
+                  "https://www.encar.com/md/sl/mdsl_regcar.do?method=inspectionViewNew&carid=" +
+                  catalog?.vehicleId
+                }
+              >
+                Просмотреть подробный отчет
+              </a>
+            </Button>
+          </div>
+        </section>
+      </div>
+
+      {/* Категория */}
+      <section className="border rounded-lg p-6 shadow-sm bg-gray-50">
+        <h2 className="text-2xl font-semibold mb-6">Категория</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+          {/* Левая колонка */}
+          <div className="space-y-2">
+            <p>
+              <span className="font-semibold">Внутренний/Импорт:</span>{" "}
+              {catalog.category.domestic ? "Внутренний" : "Импорт"}
             </p>
-            <span className="font-semibold">
-              Пробег: {catalog.spec.mileage.toLocaleString()} км
-            </span>{" "}
+            <p>
+              <span className="font-semibold">Цена нового авто:</span>{" "}
+              {convertNumber(catalog.category.originPrice)} вон
+            </p>
+            <p>
+              <span className="font-semibold">Гарантия:</span>{" "}
+              {catalog.category.warranty.companyName ?? "Нет данных"}
+            </p>
+            <p>
+              <span className="font-semibold">Срок гарантии (мес.):</span>{" "}
+              {catalog.category.warranty.bodyMonth}
+            </p>
+            <p>
+              <span className="font-semibold">Пробег гарантии:</span>{" "}
+              {catalog.category.warranty.bodyMileage.toLocaleString()} км
+            </p>
           </div>
-        </header>
 
-        {/* Главый БЛОК //////// */}
-        <div className="lg:grid lg:grid-cols-2 flex flex-col">
-          {/* ГЛАВНАЯ СЛАЙДЕР */}
-          <section className="border rounded py-4 shadow-sm bg-gray-50">
-            <h2 className="text-2xl font-semibold ">Фотографии</h2>
-            {catalog.photos.length === 0 ? (
-              <p>Фотографии отсутствуют</p>
-            ) : (
-              <div className="border-2 col-span-1">
-                <Carousel opts={{ loop: true }}>
-                  <CarouselContent>
-                    {catalog.photos.map((photo) => (
-                      <CarouselItem key={photo.code}>
-                        <img
-                          src={"https://ci.encar.com" + photo.path}
-                          alt={photo.desc || "Car photo"}
-                          className="w-full  object-cover rounded-lg max-w-[900px] max-h-[550px]"
-                        />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
-              </div>
-            )}
-          </section>
-          {/* ГЛАВНАЯ ИНФОБЛОК */}
-          <div className="col-span-1">
-            {" "}
-            <DetailInfo
-              id={catalog?.vehicleId}
-              carnumber={catalog?.vehicleNo}
-            />
-            <div className="h-[200px] flex items-center justify-center">
-              <Button className="py-3 px-4" variant="destructive">
-                <a
-                  target="_blank"
-                  href={
-                    "https://www.encar.com/md/sl/mdsl_regcar.do?method=inspectionViewNew&carid=" +
-                    catalog?.vehicleId
-                  }
-                >
-                  Просмотреть подробный отчет
-                </a>
-              </Button>
-            </div>
+          {/* Средняя колонка */}
+          <div className="space-y-2">
+            <p>
+              <span className="font-semibold">Объем двигателя:</span>{" "}
+              {catalog.spec.displacement} см³
+            </p>
+            <p>
+              <span className="font-semibold">Трансмиссия:</span>{" "}
+              {translateGenerationRow(catalog.spec.transmissionName)}
+            </p>
+            <p>
+              <span className="font-semibold">Топливо:</span>{" "}
+              {translateGenerationRow(catalog.spec.fuelName)}
+            </p>
+            <p>
+              <span className="font-semibold">Цвет:</span>{" "}
+              {translateGenerationRow(catalog.spec.colorName)}
+            </p>
+            <p>
+              <span className="font-semibold">Пользовательский цвет:</span>{" "}
+              {catalog.spec.customColor ?? "—"}
+            </p>
+            <p>
+              <span className="font-semibold">Количество мест:</span>{" "}
+              {catalog.spec.seatCount}
+            </p>
+            <p>
+              <span className="font-semibold">Тип кузова:</span>{" "}
+              {translateGenerationRow(catalog.spec.bodyName)}
+            </p>
           </div>
-        </div>
-        {/* ///////////////////////// */}
-        <div className="max-w-7xl mx-auto p-6 bg-white text-gray-900 min-h-screen space-y-8">
-          {/* Manage */}
 
-          {/* Category */}
-          <section className="border rounded p-4 shadow-sm bg-gray-50">
-            <h2 className="text-2xl font-semibold mb-3">Категория</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div>
-                <p>
-                  <span className="font-semibold">Внутренний/Импорт:</span>{" "}
-                  {catalog.category.domestic ? "Внутренний" : "Импорт"}
-                </p>
-                <p>
-                  <span className="font-semibold">Цена нового авто:</span>{" "}
-                  {convertNumber(catalog.category.originPrice)}вон
-                </p>
-                <p>
-                  <span className="font-semibold">Гарантия:</span>{" "}
-                  {catalog.category.warranty.companyName ?? "Нет данных"}
-                </p>
-                <p>
-                  <span className="font-semibold">Срок гарантии (месяцы):</span>{" "}
-                  {catalog.category.warranty.bodyMonth}
-                </p>
-                <p>
-                  <span className="font-semibold">Пробег гарантии:</span>{" "}
-                  {catalog.category.warranty.bodyMileage.toLocaleString()} км
-                </p>
-              </div>
-              <div>
-                {/* <p>
-                <span className="font-semibold">Пробег:</span>{" "}
-                {catalog.spec.mileage.toLocaleString()} км
-              </p> */}
-                <p>
-                  <span className="font-semibold">Объем двигателя:</span>{" "}
-                  {catalog.spec.displacement} см³
-                </p>
-                <p>
-                  <span className="font-semibold">Трансмиссия:</span>{" "}
-                  {translateGenerationRow(catalog.spec.transmissionName)}
-                </p>
-                <p>
-                  <span className="font-semibold">Топливо:</span>{" "}
-                  {translateGenerationRow(catalog.spec.fuelName)}
-                </p>
-                <p>
-                  <span className="font-semibold">Цвет:</span>{" "}
-                  {translateGenerationRow(catalog.spec.colorName)}
-                </p>
-                <p>
-                  <span className="font-semibold">Пользовательский цвет:</span>{" "}
-                  {catalog.spec.customColor ?? "—"}
-                </p>
-                <p>
-                  <span className="font-semibold">Количество мест:</span>{" "}
-                  {catalog.spec.seatCount}
-                </p>
-                <p>
-                  <span className="font-semibold">Тип кузова:</span>{" "}
-                  {translateGenerationRow(catalog.spec.bodyName)}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <span className="font-semibold">Дилер:</span>{" "}
-                  {catalog.contact.userId} ({catalog.contact.userType})
-                </p>
-                <p>
-                  <span className="font-semibold">Телефон:</span>{" "}
-                  {catalog.contact.no}
-                </p>
-                <p>
-                  <span className="font-semibold">Адрес:</span>{" "}
-                  {catalog.contact.address}
-                </p>
-                <p>
-                  <span className="font-semibold">Тип контакта:</span>{" "}
-                  {catalog.contact.contactType}
-                </p>
-                <p>
-                  <span className="font-semibold">Партнёр владельца:</span>{" "}
-                  {catalog.contact.isOwnerPartner ? "Да" : "Нет"}
-                </p>
-              </div>
-            </div>
-          </section>
+          {/* Правая колонка */}
+          {/* <div className="space-y-2">
+            <p>
+              <span className="font-semibold">Дилер:</span>{" "}
+              {catalog.contact.userId} ({catalog.contact.userType})
+            </p>
+            <p>
+              <span className="font-semibold">Телефон:</span>{" "}
+              {catalog.contact.no}
+            </p>
+            <p>
+              <span className="font-semibold">Адрес:</span>{" "}
+              {catalog.contact.address}
+            </p>
+            <p>
+              <span className="font-semibold">Тип контакта:</span>{" "}
+              {catalog.contact.contactType}
+            </p>
+            <p>
+              <span className="font-semibold">Партнёр владельца:</span>{" "}
+              {catalog.contact.isOwnerPartner ? "Да" : "Нет"}
+            </p>
+          </div> */}
         </div>
-      </div>
+      </section>
     </div>
   );
 };
