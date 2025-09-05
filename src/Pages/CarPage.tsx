@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import DetailInfo from "./CarPageComponents/DetailInfo";
 import {
   Carousel,
@@ -15,6 +15,8 @@ import { translateGenerationRow } from "@/utils/translateGenerationRow";
 
 import { formatDate } from "@/utils/formatDate";
 import { Button } from "@/UI/ShadcnButton";
+import copy from "copy-to-clipboard";
+
 // 1. Общая информация об управлении (manage)
 interface Manage {
   dummy: boolean;
@@ -233,11 +235,26 @@ const CarPage = () => {
   const [catalog, setMainData] = useState<Catalog>();
   const [mainDataLoading, setMainDataLoading] = useState(true);
   const [detailData, setDetailData] = useState();
+  const [copied, setCopied] = useState(false);
+  const handleClick = () => {
+    const success = copy(window.location.href);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+      alert("Ссылка скопирована в буфер обмена");
+    }
+  };
   if (mainDataLoading) return <div>loading</div>;
 
   return (
     <div className="max-w-[1200px] mx-auto text-black border-2 rounded-lg shadow-sm bg-white  py-8 space-y-10">
       {/* Заголовок */}
+      <div>
+        <Button>
+          <Link to={"../catalog"}>назад</Link>
+        </Button>
+        <Button onClick={() => handleClick()}>скопировать ссылку</Button>
+      </div>
       <header className="space-y-4 px-6">
         <h1 className="lg:text-4xl text-2xl font-bold flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3">
           <div className="border-b-2 border-black pb-1">

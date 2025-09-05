@@ -7,7 +7,6 @@ import Home from "./Pages/Home";
 import About from "./Pages/About";
 import { fetchCatalog } from "./service";
 import CarPage from "./Pages/CarPage";
-import Header from "./Modules/Header/Header";
 
 interface ICatalogItem {
   Action: string;
