@@ -5,57 +5,38 @@ import { observer } from "mobx-react-lite";
 import { filterStore } from "@/Store/store";
 import { Pagination } from "antd";
 import { Skeleton } from "antd";
+import { useQuery } from "@tanstack/react-query";
 const CardsRow = observer(() => {
   const { query, minMileage, maxMileage, minPrice, maxPrice } = filterStore;
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [total, setTotal] = useState<number | null>(null);
   const [currentPage, setCurentPage] = useState<number>(0);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const offset = currentPage === 0 ? "" : currentPage * 20;
-
-    const paramsQuery = generateFilterQuery({
+  const { data, isLoading, error } = useQuery({
+    queryKey: [
+      "cars",
+      query,
+      currentPage,
       minMileage,
       maxMileage,
       minPrice,
       maxPrice,
-    });
-
-    const newString =
-      query.slice(0, query.length - 1) +
-      paramsQuery +
-      query.slice(query.length - 1);
-    fetch(
-      `https://api.encar.com/search/car/list/premium?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`,
-      {
-        headers: {
-          "user-agent":
-            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data.SearchResults);
-        setTotal(data.Count);
-      })
-      .catch((error) => {
-        fetch(
-          `https://encar-proxy-main.onrender.com/api/catalog?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setData(data.SearchResults);
-            setTotal(data.Count);
-          });
-      })
-      .finally(() => setLoading(false));
-  }, [query, currentPage, minMileage, maxMileage, minPrice, maxPrice]);
+    ],
+    queryFn: () =>
+      fetchCars({
+        query,
+        currentPage,
+        minMileage,
+        maxMileage,
+        minPrice,
+        maxPrice,
+      }),
+    staleTime: 1000 * 60 * 5, // кэш на 5 минут
+  });
   useEffect(() => {
     setCurentPage(0);
   }, [query]);
-  if (loading) {
+  if (isLoading) {
     return <Skeleton active paragraph={{ rows: 4 }} />;
   }
   if (data.length === 0) return <Skeleton active paragraph={{ rows: 4 }} />;
@@ -63,7 +44,7 @@ const CardsRow = observer(() => {
   return (
     <div className="pb-10 flex flex-col min-h-screen">
       <div className="grid  grid-cols-1 lg:grid-cols-2 items-start gap-4 min-h-[80vh] ">
-        {data && data.map((i) => <CarCard key={i.Id} item={i} />)}
+        {data && data.SearchResults.map((i) => <CarCard key={i.Id} item={i} />)}
       </div>
       <div className="mt-5">
         {" "}
@@ -109,4 +90,53 @@ const generateFilterQuery = ({
   else year = `_.Year.range(${minYear + "00"}..${maxYear + "00"}).`;
 
   return mileage + price + year + "";
+};
+
+const fetchCars = async ({
+  query,
+  currentPage,
+  minMileage,
+  maxMileage,
+  minPrice,
+  maxPrice,
+}: {
+  query: string;
+  currentPage: number;
+  minMileage: number;
+  maxMileage: number;
+  minPrice: number;
+  maxPrice: number;
+}) => {
+  const offset = currentPage === 0 ? "" : currentPage * 20;
+  const paramsQuery = generateFilterQuery({
+    minMileage,
+    maxMileage,
+    minPrice,
+    maxPrice,
+  });
+
+  const newString =
+    query.slice(0, query.length - 1) +
+    paramsQuery +
+    query.slice(query.length - 1);
+
+  try {
+    const res = await fetch(
+      `https://api.encar.com/search/car/list/premium?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`,
+      {
+        headers: {
+          "user-agent":
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch {
+    const fallbackRes = await fetch(
+      `https://encar-proxy-main.onrender.com/api/catalog?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`
+    );
+    const fallbackData = await fallbackRes.json();
+    return fallbackData;
+  }
 };

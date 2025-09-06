@@ -211,6 +211,8 @@ interface Catalog {
   vehicleNo: string;
 }
 
+// ================================================
+
 const CarPage = () => {
   const { id } = useParams();
   useEffect(() => {
@@ -247,17 +249,19 @@ const CarPage = () => {
   if (mainDataLoading) return <div>loading</div>;
 
   return (
-    <div className="max-w-[1200px] mx-auto text-black border-2 rounded-lg shadow-sm bg-white  py-8 space-y-10">
+    <div className="max-w-[1200px] mx-auto text-black rounded-lg shadow-sm bg-white  py-8 space-y-10">
       {/* Заголовок */}
-      <div>
+      <div className="row w-full  justify-between flex py-2 border-t-2 border-b-2">
         <Button>
-          <Link to={"../catalog"}>назад</Link>
+          <Link to={"../"}>назад</Link>
         </Button>
-        <Button onClick={() => handleClick()}>скопировать ссылку</Button>
+        <Button className="cursor-pointer" onClick={() => handleClick()}>
+          скопировать ссылку
+        </Button>
       </div>
       <header className="space-y-4 px-6">
         <h1 className="lg:text-4xl text-2xl font-bold flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3">
-          <div className="border-b-2 border-black pb-1">
+          <div className="border-b-2  pb-1">
             {translateGenerationRow(catalog.category.manufacturerName)}{" "}
             {translateGenerationRow(catalog.category.modelName)}{" "}
             {translateGenerationRow(catalog.category.gradeName)}{" "}
@@ -285,12 +289,12 @@ const CarPage = () => {
       {/* Основной блок */}
       <div className=" lg:grid-cols-2 gap-8 ">
         {/* Фото */}
-        <section className="border rounded-lg py-4 bg-gray-50 shadow-sm max-w-screen">
+        <section className=" rounded-lg py-4 bg-gray-50 shadow-sm max-w-screen">
           <h2 className="text-2xl font-semibold mb-4 px-4">Фотографии</h2>
           {catalog.photos.length === 0 ? (
             <p className="text-gray-500">Фотографии отсутствуют</p>
           ) : (
-            <div className="border-2 rounded-lg overflow-hidden">
+            <div className=" rounded-lg overflow-hidden">
               <Carousel opts={{ loop: true }}>
                 <CarouselContent>
                   {catalog.photos.map((photo) => (
@@ -314,7 +318,7 @@ const CarPage = () => {
         </section>
 
         {/* Инфоблок */}
-        <section className="flex flex-col justify-between border rounded-lg p-4 shadow-sm bg-gray-50">
+        <section className="flex flex-col justify-between  rounded-lg p-4 shadow-sm bg-gray-50">
           <DetailInfo id={catalog?.vehicleId} carnumber={catalog?.vehicleNo} />
           <div className="flex items-center justify-center mt-6">
             <Button className="py-3 px-6 text-lg" variant="destructive">
@@ -333,7 +337,7 @@ const CarPage = () => {
       </div>
 
       {/* Категория */}
-      <section className="border rounded-lg p-6 shadow-sm bg-gray-50">
+      <section className=" rounded-lg p-6 shadow-sm bg-gray-50">
         <h2 className="text-2xl font-semibold mb-6">Категория</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
           {/* Левая колонка */}

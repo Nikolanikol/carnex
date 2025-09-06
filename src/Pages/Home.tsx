@@ -19,7 +19,7 @@ const Home = () => {
           className="cursor-pointer w-full relative z-50"
           onClick={() => setIsShow(!isShow)}
         >
-          show
+          Открыть фильтр
         </Button>
       </div>
       <div

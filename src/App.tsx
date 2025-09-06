@@ -7,7 +7,7 @@ import Home from "./Pages/Home";
 import About from "./Pages/About";
 import { fetchCatalog } from "./service";
 import CarPage from "./Pages/CarPage";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 interface ICatalogItem {
   Action: string;
   Count: number;
@@ -31,20 +31,22 @@ const fetchSubCategory = async (query: string) => {
     .catch((e) => console.log("fetch catalog error", e.text));
   return res;
 };
-
+const queryClient = new QueryClient();
 function App() {
   return (
     <div className="flex flex-col min-h-screen ">
-      <BrowserRouter>
-        {/* <Header /> */}
-        <main className="grow ">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/car/:id" element={<CarPage />} />
-          </Routes>
-        </main>
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          {/* <Header /> */}
+          <main className="grow ">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/car/:id" element={<CarPage />} />
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </QueryClientProvider>
     </div>
   );
 }
