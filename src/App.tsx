@@ -34,7 +34,7 @@ const fetchSubCategory = async (query: string) => {
 const queryClient = new QueryClient();
 function App() {
   return (
-    <div className="flex flex-col min-h-screen ">
+    <div className="flex flex-col min-h-screen  pb-30">
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           {/* <Header /> */}

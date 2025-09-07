@@ -42,7 +42,7 @@ const CardsRow = observer(() => {
   if (data.length === 0) return <Skeleton active paragraph={{ rows: 4 }} />;
   console.log(data);
   return (
-    <div className="pb-10 flex flex-col min-h-screen">
+    <div className=" flex flex-col min-h-screen  ">
       <div className="grid  grid-cols-1 lg:grid-cols-2 items-start gap-4 min-h-[80vh] ">
         {data && data.SearchResults.map((i) => <CarCard key={i.Id} item={i} />)}
       </div>
@@ -50,7 +50,7 @@ const CardsRow = observer(() => {
         {" "}
         <Pagination
           defaultCurrent={currentPage}
-          total={total}
+          total={data.Count}
           showSizeChanger
           onChange={(e) => setCurentPage(e - 1)}
           pageSize={20}

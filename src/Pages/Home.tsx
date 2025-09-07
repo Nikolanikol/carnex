@@ -10,9 +10,7 @@ const Home = () => {
 
   return (
     <div
-      className={clsx(
-        " grid grid-cols-1 lg:grid-cols-12 gap-4 p-2 h-full m-0 mx-auto "
-      )}
+      className={clsx(" grid grid-cols-1 lg:grid-cols-12 gap-4 p-2   mx-auto ")}
     >
       <div className="min-h-4 border-red border-2 block lg:hidden ">
         <Button
