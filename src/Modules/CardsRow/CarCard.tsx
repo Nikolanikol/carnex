@@ -51,7 +51,7 @@ const CarCard = ({ item, mode }) => {
             className="cursor-pointer self-stretch w-full mt-auto"
             variant={"outline"}
           >
-            <Link to={`/car/${item.Id}`} className=" w-full">
+            <Link target="_blank" to={`/car/${item.Id}`} className=" w-full">
               Подробнеe
             </Link>
           </Button>
