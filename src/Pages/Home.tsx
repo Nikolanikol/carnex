@@ -1,13 +1,22 @@
 import CardsRow from "@/Modules/CardsRow/CardsRow";
 import MyFilter from "@/Modules/MyFilter/MyFilter";
+import { filterStore } from "@/Store/store";
 import { Button } from "@/UI/ShadcnButton";
 import clsx from "clsx";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
+  const [searchParams] = useSearchParams();
   const [isShow, setIsShow] = React.useState(false);
+  const manufacture = searchParams.get("manufacture");
+  const { setQuery } = filterStore;
 
+  useEffect(() => {
+    if (manufacture && manufacture != "null") {
+      setQuery(manufacture);
+    }
+  }, []);
   return (
     <div
       className={clsx(" grid grid-cols-1 lg:grid-cols-12 gap-4 p-2   mx-auto ")}

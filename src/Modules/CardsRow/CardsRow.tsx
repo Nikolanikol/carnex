@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 const CardsRow = observer(() => {
   const { query, minMileage, maxMileage, minPrice, maxPrice } = filterStore;
   // const [data, setData] = useState([]);
-  const [total, setTotal] = useState<number | null>(null);
+
   const [currentPage, setCurentPage] = useState<number>(0);
 
   const { data, isLoading, error } = useQuery({
@@ -34,13 +34,16 @@ const CardsRow = observer(() => {
     staleTime: 1000 * 60 * 5, // кэш на 5 минут
   });
   useEffect(() => {
-    setCurentPage(0);
+    if (currentPage !== 0) {
+      setCurentPage(0);
+    }
   }, [query]);
   if (isLoading) {
     return <Skeleton active paragraph={{ rows: 4 }} />;
   }
   if (data.length === 0) return <Skeleton active paragraph={{ rows: 4 }} />;
-  console.log(data);
+  console.log("fetchCars rerender");
+
   return (
     <div className=" flex flex-col min-h-screen  ">
       <div className="grid  grid-cols-1 lg:grid-cols-2 items-start gap-4 min-h-[80vh] ">
@@ -119,7 +122,7 @@ const fetchCars = async ({
     query.slice(0, query.length - 1) +
     paramsQuery +
     query.slice(query.length - 1);
-
+  console.log(query, "cardsrow query");
   try {
     const res = await fetch(
       `https://api.encar.com/search/car/list/premium?count=true&q=${newString}&sr=%7CModifiedDate%7C${offset}%7C20`,

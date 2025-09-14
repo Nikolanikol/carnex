@@ -92,7 +92,6 @@ const DetailInfo: FC<DetailInfoProps> = ({ id, carnumber }) => {
         `https://api.encar.com/v1/readside/record/vehicle/${id}/open?vehicleNo=${carnumber}`
       )
       .then((res) => {
-        console.log("DETAILINFO", res);
         setData(res.data);
       })
 

@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from "@/UI/ShadcnCarousel";
 import { convertNumber } from "@/utils/splitNumber";
-import { Image } from "antd";
+
 import { translateGenerationRow } from "@/utils/translateGenerationRow";
 
 import { formatDate } from "@/utils/formatDate";
@@ -214,7 +214,8 @@ interface Catalog {
 // ================================================
 
 const CarPage = () => {
-  const { id } = useParams();
+  const { id, manufacture } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -224,7 +225,6 @@ const CarPage = () => {
           //   ),
           axios.get(`https://api.encar.com/v1/readside/vehicle/${id}`),
         ]);
-        console.log(mainData.data);
 
         setMainData(mainData.data);
         setMainDataLoading(false);

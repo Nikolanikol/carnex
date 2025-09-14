@@ -38,7 +38,7 @@ const MyFilterManufatuceRow = observer(() => {
     fetchCatalog(mode)
       .then((res) => {
         setManufactureData(res);
-        setQuery(mode);
+        // setQuery(mode);
         setLoading(false);
       })
       .catch((e) => console.log(e));

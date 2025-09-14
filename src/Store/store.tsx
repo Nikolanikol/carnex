@@ -13,7 +13,6 @@ class FilterStore {
   setQuery = action((newQuery: string) => {
     if (newQuery != this.query) {
       this.query = newQuery;
-      console.log("query change", newQuery);
     }
   });
   setMinMileage = action((newQuery: string) => {
@@ -27,7 +26,6 @@ class FilterStore {
   });
   setMaxPriceStore = action((newQuery: string) => {
     this.maxPrice = newQuery;
-    console.log(this.maxPrice);
   });
 }
 
