@@ -1,7 +1,7 @@
 import { action, makeAutoObservable } from "mobx";
 
 class FilterStore {
-  query = "(And.Hidden.Y._.CarType.Y.)";
+  query = "(And.Hidden.N._.CarType.Y.)";
   minMileage: null | string = "";
   maxMileage: null | string = "";
   minPrice: null | string = "";
